@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Elenco Prodotti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+    body {
+            font-family: Arial, sans-serif;
+            background-color:#a9e7a9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+    
+        img {
+            width: 100px; /* Dimensione ottimizzata per immagini */
+            height: auto;
+            transition: transform 0.3s ease; /* Aggiunge un effetto di zoom sulle immagini */
+        }
+        img:hover {
+            transform: scale(1.1); /* Zoom sull'immagine al passaggio del mouse */
+        }
+        table {
+            margin-top: 20px;
+            transition: background-color 0.3s ease; /* Transizione del colore di sfondo */
+        }
+        thead {
+            background-color: #00796b; /* Colore di intestazione più vivace */
+            color: white;
+        }
+        tbody tr {
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Transizione per la riga */
+        }
+        tbody tr:hover {
+            background-color: #e0f2f1; /* Cambia il colore della riga al passaggio del mouse */
+            transform: scale(1.02); /* Leggero ingrandimento della riga */
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #f1f1f1; /* Colore alternato per le righe */
+        }
+        tbody tr:nth-child(even) {
+            background-color: #ffffff; /* Colore alternato per le righe */
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .btn-submit {
+            margin-top: 20px;
+            width: 100%;
+            background-color: #00796b; /* Colore personalizzato per il pulsante */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Aggiunta transizione */
+        }
+        .btn-submit:hover {
+            background-color: #004d40; /* Colore di hover del pulsante */
+            transform: scale(1.05); /* Effetto di ingrandimento del pulsante */
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #00796b;
+            font-weight: bold;
+            transition: color 0.3s ease; /* Transizione per il colore del link */
+        }
+        .back-link:hover {
+            text-decoration: underline;
+            color: #004d40; /* Colore del link al passaggio del mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3 class="center-align">Lista dei Prodotti</h3>
+        <form action="/buy" method="post">
+            <table class="striped responsive-table">
+                <thead>
+                    <tr>
+                        <th>Nome Prodotto</th>
+                        <th>Marca</th>
+                        <th>Prezzo</th>
+                        <th>Immagine</th>
+                        <th>Quantità</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="prodotto : ${lista}">
+                        <td th:text="${prodotto.nome}"></td>
+                        <td th:text="${prodotto.marca}"></td>
+                        <td>€<span th:text="${prodotto.prezzo}"></span></td>
+                        <td><img th:src="${prodotto.url}" alt="Immagine prodotto"></td>
+                        <td>
+                            <div class="input-field">
+                                <input type="number" name="selected" value="0" min="0" class="validate">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn waves-effect waves-light btn-submit">Compra</button>
+        </form>
+        <a href="/form" class="back-link"><- Torna ad aggiungere prodotti</a>
+    </div>
+</body>
+</html>

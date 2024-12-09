@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negozio di Strumenti Musicali</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#a9e7a9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            margin: 20px 0;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="url"],
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"],
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 48%;
+        }
+
+        select {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h3>Inserisci Strumento</h3>
+        <form action="/submit" method="POST">
+            <label for="nome">Inserisci il nome dello strumento:</label>
+            <input type="text" id="nome" name="nome" placeholder="Nome strumento" required><br>
+
+            <label for="marca">Inserisci la marca dello strumento:</label>
+            <input type="text" id="marca" name="marca" placeholder="Marca strumento" required><br>
+
+            <label for="prezzo">Inserisci il prezzo dello strumento:</label>
+            <input type="number" id="prezzo" name="prezzo" placeholder="Prezzo strumento" required><br>
+
+            <label for="url">Inserisci la URL dello strumento:</label>
+            <input type="url" id="url" name="url" placeholder="URL strumento"><br>
+
+            <input type="submit" value="Invia">
+        </form>
+        
+        <h3>Aggiorna Prezzo dello Strumento</h3>
+        <form action="/update" method="POST">
+            <label for="nomeUpdatePrezzo">Inserisci il nome dello strumento:</label>
+            <input type="text" id="nomeUpdatePrezzo" name="nome" placeholder="Nome strumento" required><br>
+
+            <label for="prezzoUpdate">Inserisci il nuovo prezzo dello strumento:</label>
+            <input type="number" id="prezzoUpdate" name="prezzo" placeholder="Nuovo prezzo" required><br>
+
+            <input type="submit" value="Aggiorna Prezzo">
+        </form>
+
+        <h3>Aggiorna Numero Pezzi dello Strumento</h3>
+        <form id="strumentoForm" action="/updateP" method="POST">
+            <div id="pezziContainer">
+                <div class="form-group">
+                    <label for="pezzo1">Nome pezzo:</label>
+                    <input type="text" name="nome" id="pezzo1" required>
+                    <label for="quantita1">Quantita:</label>
+                    <input type="number" name="pezzi" id="quantita1" required min="1">
+                </div>
+            </div>
+            <br>
+            <button type="submit">Invia</button>
+        </form>
+        
+        <h3>Cancella Strumento</h3>
+        <form action="/delete" method="POST">
+            <label for="strumento">Seleziona lo strumento da cancellare:</label>
+            <select id="strumento" name="nome" required>
+                <option value="" disabled selected>Seleziona uno strumento</option>
+                <!-- Dynamically populate options -->
+                <option th:each="strumento : ${lista}" 
+                        th:value="${strumento.nome}" 
+                        th:text="${strumento.nome}">
+                </option>
+            </select><br><br>
+
+            <input type="submit" value="Cancella">
+        </form>
+    </div>
+</body>
+</html>
